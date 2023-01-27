@@ -12,18 +12,22 @@ const configuration = new Configuration({
   organization: "org-KA73dq6BHKM4HmqBD03ACd9j",
   apiKey:
     process.env.API_KEY ||
-    "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",
+    "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",
 });
 const openai = new OpenAIApi(configuration);
 
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get("/test", (req, res) => {
+  res.send("hello world");
+});
+
 app.post("/", async (req, res) => {
   const { message } = req.body;
   const response = await openai.createCompletion({
     model: "text-davinci-003",
-    prompt: `${message}`,
+    prompt: `Suggest some youtube title for ${message}`,
     max_tokens: 100,
     temperature: 1,
   });
